@@ -143,9 +143,9 @@ If you use this work, please cite:
 
 ## Contact
 
-**Author:** Your Name  
-**Email:** your.email@institution.edu  
-**Institution:** Your Institution
+**Author:Michel Monfette 
+**Email: mycmon@gmail.com 
+
 
 ## License
 
@@ -165,6 +165,3 @@ Special thanks to:
   - 214,708,725 residues computed
   - Perfect uniformity confirmed
 
----
-
-**Status:** Ready for submission to journal (Journal of Number Theory, Mathematics of Computation, or similar)

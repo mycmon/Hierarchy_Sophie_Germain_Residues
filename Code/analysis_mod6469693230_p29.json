@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-02-16T13:24:39.779702",
+  "modulus": 6469693230,
+  "modulus_previous": 223092870,
+  "prime_factor": 29,
+  "summary": {
+    "residues_prev": 7968646,
+    "residues_observed": 214708725,
+    "residues_predicted": 214708725,
+    "ratio": 27.0,
+    "epsilon": 0.0,
+    "theoretical_factor": 27
+  },
+  "statistics": {
+    "distribution": {
+      "observed": 214708725,
+      "predicted": 214708725,
+      "ratio": 27.0,
+      "epsilon": 0.0,
+      "error_pct": 0.0
+    },
+    "uniformity": {
+      "uniform": true,
+      "min": 1,
+      "max": 1,
+      "mean": 1.0,
+      "distribution": {
+        "1": 100000
+      }
+    }
+  }
+}

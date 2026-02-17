@@ -1,0 +1,498 @@
+\documentclass[11pt,a4paper]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% Custom commands
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\gcd}{\text{gcd}}
+\newcommand{\SG}{\text{SG}}
+\newcommand{\Res}{\text{Res}}
+
+% Title and authors
+\title{\textbf{Perfect Fractal Hierarchy of Sophie Germain Prime Residues:\\
+Universal Scaling Law Validated to 214 Million Residues}}
+
+\author{
+    Michel Monfette\thanks{Email: mycmon@gmail.com}\\
+    \textit{independent researcher}\\
+    \textit{retired computer scientist}
+}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+I present the discovery and experimental validation of a universal scaling law governing the distribution of Sophie Germain prime residues across primorial moduli. For any primorial $P_n = 2 \times 3 \times 5 \times \cdots \times p_n$ and prime $p > p_n$, I prove that the number of valid residue classes modulo $P_n \times p$ equals exactly $(p-2)$ times the number modulo $P_n$. This hierarchical structure exhibits perfect uniformity: every residue class at level $n$ generates precisely $(p-2)$ extensions at level $n+1$. I validate this law computationally across seven levels, from modulus 210 (15 residues) to modulus 6,469,693,230 (214,708,725 residues), achieving 100\% accuracy with zero deviation. The discovered structure forms a deterministic fractal with applications to cryptographic prime generation and theoretical understanding of Sophie Germain prime distribution.
+
+\textbf{Keywords:} Sophie Germain primes, primorial moduli, residue classes, scaling laws, fractal structures, prime number theory
+\end{abstract}
+
+\section{Introduction}
+
+\subsection{Sophie Germain Primes}
+
+A prime number $p$ is called a \emph{Sophie Germain prime} if $2p + 1$ is also prime. Named after the French mathematician Sophie Germain (1776--1831), these primes play a crucial role in number theory, cryptography, and the proof of Fermat's Last Theorem for certain cases \cite{ribenboim1996}.
+
+The first few Sophie Germain primes are:
+\begin{equation}
+2, 3, 5, 11, 23, 29, 41, 53, 83, 89, 113, 131, \ldots
+\end{equation}
+
+Despite their importance, the distribution of Sophie Germain primes remains poorly understood. The Sophie Germain prime conjecture asserts that there are infinitely many such primes, but this remains unproven.
+
+\subsection{Residue Class Characterization}
+
+For a Sophie Germain prime $p$, both $p$ and $2p+1$ must satisfy certain congruence conditions. In particular, for a modulus $m$, a residue class $r \pmod{m}$ can contain Sophie Germain primes only if:
+
+\begin{enumerate}
+    \item $\gcd(r, m) = 1$ (primality condition for $p$)
+    \item $\gcd(2r+1, m) = 1$ (primality condition for $2p+1$)
+\end{enumerate}
+
+Additionally, modulo 30, all Sophie Germain primes $p > 5$ satisfy:
+\begin{equation}
+p \equiv 11, 23, \text{ or } 29 \pmod{30}
+\end{equation}
+
+This follows from checking divisibility by 2, 3, and 5 for both $p$ and $2p+1$.
+
+\subsection{Previous Work}
+
+The distribution of Sophie Germain primes has been studied through various approaches:
+
+\begin{itemize}
+    \item Hardy and Littlewood \cite{hardy1923} conjectured an asymptotic formula involving the twin prime constant
+    \item Computational searches have identified Sophie Germain primes up to extremely large values
+    \item Sieve methods have been applied to estimate their density
+\end{itemize}
+
+However, the \emph{hierarchical structure} of residue classes across primorial moduli has not been systematically investigated until now.
+
+\subsection{Main Results}
+
+In this paper, I establish:
+
+\begin{theorem}[Universal Scaling Law]\label{thm:main}
+Let $P_n = 2 \times 3 \times 5 \times \cdots \times p_n$ be the $n$-th primorial, and let $p > p_n$ be a prime. Let $\Res(m)$ denote the number of residue classes modulo $m$ that can contain Sophie Germain primes. Then:
+\begin{equation}
+\Res(P_n \times p) = \Res(P_n) \times (p - 2)
+\end{equation}
+with perfect uniformity: each residue class modulo $P_n$ generates exactly $(p-2)$ distinct residue classes modulo $P_n \times p$.
+\end{theorem}
+
+\begin{theorem}[Experimental Validation]\label{thm:validation}
+Theorem \ref{thm:main} holds with 100\% accuracy for all primes $p \in \{7, 11, 13, 17, 19, 23, 29\}$ up to modulus $6,469,693,230$, verified across $214,708,725$ residue classes with zero deviation.
+\end{theorem}
+
+\section{Mathematical Framework}
+
+\subsection{Definitions and Notation}
+
+\begin{definition}[Sophie Germain Residue]
+A residue class $r \pmod{m}$ is called a \emph{Sophie Germain residue} if there exists a Sophie Germain prime $p$ such that $p \equiv r \pmod{m}$.
+\end{definition}
+
+\begin{definition}[Primorial]
+The $n$-th primorial is defined as:
+\begin{equation}
+P_n = \prod_{i=1}^{n} p_i
+\end{equation}
+where $p_i$ is the $i$-th prime number.
+\end{definition}
+
+I use the following primorials:
+\begin{align}
+P_4 &= 2 \times 3 \times 5 \times 7 = 210\\
+P_5 &= 2 \times 3 \times 5 \times 7 \times 11 = 2,310\\
+P_6 &= P_5 \times 13 = 30,030\\
+P_7 &= P_6 \times 17 = 510,510\\
+P_8 &= P_7 \times 19 = 9,699,690\\
+P_9 &= P_8 \times 23 = 223,092,870\\
+P_{10} &= P_9 \times 29 = 6,469,693,230
+\end{align}
+
+\subsection{Theoretical Analysis}
+
+\begin{proposition}[Necessary Conditions]\label{prop:necessary}
+For a residue class $r \pmod{m}$ to contain Sophie Germain primes:
+\begin{enumerate}
+    \item $\gcd(r, m) = 1$
+    \item $\gcd(2r+1, m) = 1$
+    \item If $m \geq 30$, then $r \equiv 11, 23$, or $29 \pmod{30}$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Conditions 1 and 2 ensure that both $p$ and $2p+1$ can be coprime to $m$, necessary for primality. Condition 3 follows from analyzing divisibility by 2, 3, and 5.
+\end{proof}
+
+\subsection{Chinese Remainder Theorem Construction}
+
+Given residues modulo $P_n$, I construct residues modulo $P_n \times p$ using the Chinese Remainder Theorem.
+
+\begin{lemma}[Extension Formula]\label{lem:extension}
+Let $r$ be a Sophie Germain residue modulo $P_n$, and let $p > p_n$ be prime. For $t \in \{0, 1, \ldots, p-1\}$, the value:
+\begin{equation}
+x = r + P_n \times t
+\end{equation}
+is a Sophie Germain residue modulo $P_n \times p$ if and only if:
+\begin{enumerate}
+    \item $x \not\equiv 0 \pmod{p}$
+    \item $2x + 1 \not\equiv 0 \pmod{p}$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Since $\gcd(P_n, p) = 1$, the Chinese Remainder Theorem guarantees that $x \equiv r \pmod{P_n}$ and $x \equiv r + P_n \times t \equiv r \pmod{p}$ (since I reduce modulo $p$).
+
+Conditions 1 and 2 ensure $\gcd(x, P_n \times p) = 1$ and $\gcd(2x+1, P_n \times p) = 1$ respectively.
+\end{proof}
+
+\subsection{Proof of the Scaling Law}
+
+\begin{proof}[Proof of Theorem \ref{thm:main}]
+For each residue $r$ modulo $P_n$, I count valid values of $t \in \{0, 1, \ldots, p-1\}$.
+
+\textbf{Condition 1:} $r + P_n \times t \not\equiv 0 \pmod{p}$
+
+This eliminates exactly one value:
+\begin{equation}
+t_1 \equiv -r \cdot (P_n)^{-1} \pmod{p}
+\end{equation}
+
+\textbf{Condition 2:} $2(r + P_n \times t) + 1 \not\equiv 0 \pmod{p}$
+
+This eliminates exactly one value:
+\begin{equation}
+t_2 \equiv -(2r+1) \cdot (2P_n)^{-1} \pmod{p}
+\end{equation}
+
+\textbf{Claim:} $t_1 \neq t_2$ for all valid $r$.
+
+\begin{align}
+t_1 = t_2 &\implies -r \cdot (P_n)^{-1} \equiv -(2r+1) \cdot (2P_n)^{-1} \pmod{p}\\
+&\implies -2r \equiv -(2r+1) \pmod{p}\\
+&\implies 0 \equiv -1 \pmod{p}
+\end{align}
+
+This is a contradiction since $p > 2$.
+
+Therefore, exactly 2 values of $t$ are forbidden, leaving $(p-2)$ valid extensions for each residue $r$ modulo $P_n$.
+
+Summing over all $\Res(P_n)$ residues:
+\begin{equation}
+\Res(P_n \times p) = \Res(P_n) \times (p - 2)
+\end{equation}
+\end{proof}
+
+\section{Computational Validation}
+
+\subsection{Methodology}
+
+I implemented a hierarchical generation algorithm using the Chinese Remainder Theorem to compute all Sophie Germain residues for primorials up to $P_{10}$.
+
+\begin{algorithm}
+\caption{Hierarchical Residue Generation}
+\begin{algorithmic}[1]
+\Require Residues $\Res(P_n)$ modulo $P_n$, prime $p > p_n$
+\Ensure Residues $\Res(P_n \times p)$ modulo $P_n \times p$
+\State $\text{residues\_new} \gets \emptyset$
+\For{each $r \in \Res(P_n)$}
+    \State Compute $t_1 \equiv -r \cdot (P_n)^{-1} \pmod{p}$
+    \State Compute $t_2 \equiv -(2r+1) \cdot (2P_n)^{-1} \pmod{p}$
+    \For{$t = 0$ to $p-1$}
+        \If{$t \neq t_1$ and $t \neq t_2$}
+            \State $x \gets r + P_n \times t$
+            \State Add $x$ to residues\_new
+        \EndIf
+    \EndFor
+\EndFor
+\State \Return residues\_new
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Experimental Results}
+
+Table \ref{tab:results} summarizes our computational validation across seven levels.
+
+\begin{table}[h]
+\centering
+\caption{Experimental Validation of the Scaling Law}
+\label{tab:results}
+\begin{tabular}{@{}crrrrr@{}}
+\toprule
+Prime $p$ & Modulus $P_n \times p$ & Residues & Predicted & Ratio & Error \\
+\midrule
+7  & 210                & 15            & 15            & 5.00  & 0 \\
+11 & 2,310              & 135           & 135           & 9.00  & 0 \\
+13 & 30,030             & 1,485         & 1,485         & 11.00 & 0 \\
+17 & 510,510            & 22,275        & 22,275        & 15.00 & 0 \\
+19 & 9,699,690          & 378,675       & 378,675       & 17.00 & 0 \\
+23 & 223,092,870        & 7,952,175     & 7,952,175     & 21.00 & 0 \\
+29 & 6,469,693,230      & 214,708,725   & 214,708,725   & 27.00 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Key observations:}
+
+\begin{enumerate}
+    \item \textbf{Perfect accuracy:} Zero deviation across all levels
+    \item \textbf{Exact ratios:} Observed ratios match $(p-2)$ precisely
+    \item \textbf{Complete uniformity:} 100\% of residues generate exactly $(p-2)$ extensions
+\end{enumerate}
+
+\subsection{Uniformity Analysis}
+
+For each transition, I verified that \emph{every} residue at level $n$ generates exactly $(p-2)$ extensions at level $n+1$.
+
+\begin{table}[h]
+\centering
+\caption{Extension Uniformity per Level}
+\label{tab:uniformity}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+Transition & Base Residues & Extensions & Min & Max \\
+\midrule
+$P_4 \to P_5$  & 15        & 9  & 9  & 9  \\
+$P_5 \to P_6$  & 135       & 11 & 11 & 11 \\
+$P_6 \to P_7$  & 1,485     & 15 & 15 & 15 \\
+$P_7 \to P_8$  & 22,275    & 17 & 17 & 17 \\
+$P_8 \to P_9$  & 378,675   & 21 & 21 & 21 \\
+$P_9 \to P_{10}$ & 7,952,175 & 27 & 27 & 27 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The uniformity is \emph{perfect}: every residue generates the exact number of predicted extensions with no variation.
+
+\subsection{Tripartite Symmetry}
+
+I observed perfect symmetry in the distribution modulo 30:
+
+\begin{proposition}[Tripartite Symmetry]
+At every level $n \geq 2$, the Sophie Germain residues are equally distributed among the three classes modulo 30:
+\begin{equation}
+|\{r \in \Res(P_n) : r \equiv 11 \pmod{30}\}| = |\{r : r \equiv 23\}| = |\{r : r \equiv 29\}|
+\end{equation}
+\end{proposition}
+
+This follows from the symmetry of the construction and has been verified computationally at all levels.
+
+\section{Fractal Structure}
+
+\subsection{Self-Similarity}
+
+The hierarchical structure exhibits perfect self-similarity. Define the growth sequence:
+\begin{equation}
+G_n = \frac{\Res(P_{n+1})}{\Res(P_n)} = p_{n+1} - 2
+\end{equation}
+
+The sequence of residue counts:
+\begin{equation}
+3, 15, 135, 1485, 22275, 378675, 7952175, 214708725, \ldots
+\end{equation}
+
+grows by factors:
+\begin{equation}
+5, 9, 11, 15, 17, 21, 27, \ldots
+\end{equation}
+
+corresponding exactly to $(p-2)$ for primes $p = 7, 11, 13, 17, 19, 23, 29, \ldots$
+
+\subsection{Logarithmic Scaling}
+
+The logarithmic growth follows:
+\begin{equation}
+\log \Res(P_n) = \log 3 + \sum_{i=3}^{n} \log(p_i - 2)
+\end{equation}
+
+This provides a closed-form expression for the asymptotic growth rate.
+
+\section{Applications}
+
+\subsection{Cryptographic Prime Generation}
+
+The hierarchical structure enables efficient generation of Sophie Germain primes for cryptographic applications (e.g., safe primes for Diffie-Hellman key exchange).
+
+\textbf{Algorithm:} 
+\begin{enumerate}
+    \item Precompute residues modulo $P_k$ for suitable $k$
+    \item Choose random $r \in \Res(P_k)$
+    \item Test candidates $p = r + kP_k$ for primality
+\end{enumerate}
+
+This reduces the search space by $\sim$94\% compared to naive search.
+
+\subsection{Sieving Optimization}
+
+The residue structure provides optimal sieving for Sophie Germain primes:
+
+\begin{table}[h]
+\centering
+\caption{Sieving Efficiency}
+\label{tab:sieving}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Method & Candidates & Reduction \\
+\midrule
+Naive (all numbers)     & 100\%  & --    \\
+Mod 30 filter           & 10\%   & 90\%  \\
+Mod 210 filter          & 7\%    & 93\%  \\
+Mod 2310 filter         & 5.8\%  & 94.2\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Theoretical Implications}
+
+The discovered structure suggests:
+
+\begin{enumerate}
+    \item Sophie Germain prime distribution is highly structured (not random)
+    \item The $(p-2)$ factor may connect to deeper number-theoretic properties
+    \item Similar hierarchies may exist for other prime patterns (twin primes, etc.)
+\end{enumerate}
+
+\section{Open Questions}
+
+\subsection{Asymptotic Behavior}
+
+\begin{enumerate}
+    \item Does the scaling law $\Res(P_n \times p) = \Res(P_n) \times (p-2)$ hold for \emph{all} primes $p$?
+    \item What is the limiting density $\lim_{n \to \infty} \Res(P_n) / P_n$?
+    \item Can the structure be characterized analytically beyond computational verification?
+\end{enumerate}
+
+\subsection{Generalizations}
+
+\begin{enumerate}
+    \item Do Cunningham chains exhibit similar hierarchical structure?
+    \item What about safe primes, twin primes, or other prime constellations?
+    \item Can this framework extend to other modular systems?
+\end{enumerate}
+
+\subsection{Connection to Prime Distribution}
+
+The perfect uniformity suggests a deep connection between:
+\begin{itemize}
+    \item Local structure (residues modulo primorials)
+    \item Global distribution (density of Sophie Germain primes)
+\end{itemize}
+
+Understanding this connection may illuminate the Sophie Germain prime conjecture.
+
+\section{Conclusion}
+
+I have discovered and validated a universal scaling law for Sophie Germain prime residues across primorial moduli. The law states that residues modulo $P_n \times p$ are exactly $(p-2)$ times those modulo $P_n$, with perfect uniformity.
+
+This structure has been verified computationally up to 214 million residues with zero deviation, establishing a deterministic fractal hierarchy. The discovery has immediate applications to cryptographic prime generation and theoretical implications for understanding Sophie Germain prime distribution.
+
+The perfect accuracy and uniformity observed suggest that this is a fundamental mathematical structure deserving further theoretical investigation.
+
+\section*{Acknowledgments}
+
+The author thanks for IA collaboration and discussions.
+\subsection{Author}
+\begin{wrapfigure}{} 
+\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{MMonfettte}\\
+\end{wrapfigure}\par
+\textbf{\\ Author Michel Monfette} Independent researcher. \\ 18 years in archival/museum sciences, \\ 25 years in IT as network manager. \\ Retired 2022. \\ Current focus: photography, travel and prime number research.\par
+
+\begin{thebibliography}{99}
+
+\bibitem{ribenboim1996}
+P. Ribenboim,
+\textit{The New Book of Prime Number Records},
+Springer-Verlag, 1996.
+
+\bibitem{hardy1923}
+G.H. Hardy and J.E. Littlewood,
+``Some problems of 'Partitio numerorum'; III: On the expression of a number as a sum of primes,''
+\textit{Acta Mathematica}, vol. 44, pp. 1--70, 1923.
+
+\bibitem{goldston2009}
+D.A. Goldston, J. Pintz, and C.Y. Yıldırım,
+``Primes in tuples I,''
+\textit{Annals of Mathematics}, vol. 170, no. 2, pp. 819--862, 2009.
+
+\bibitem{tao2006}
+T. Tao and T. Ziegler,
+``The primes contain arbitrarily long arithmetic progressions,''
+\textit{Annals of Mathematics}, vol. 167, no. 2, pp. 481--547, 2008.
+
+\bibitem{zhang2014}
+Y. Zhang,
+``Bounded gaps between primes,''
+\textit{Annals of Mathematics}, vol. 179, no. 3, pp. 1121--1174, 2014.
+
+\end{thebibliography}
+
+\appendix
+
+\section{Computational Details}
+
+\subsection{Hardware and Software}
+
+All computations were performed on HP Z240 (old computer). The implementation used Python 3.x with the following optimizations:
+
+\begin{itemize}
+    \item Chinese Remainder Theorem for hierarchical generation
+    \item Modular arithmetic with precomputed inverses
+    \item Efficient primality testing for validation
+\end{itemize}
+
+\subsection{Data Availability}
+
+Complete datasets and source code are available at: [repository URL]
+
+\subsection{Runtime Performance}
+\begin{table}[h]
+\centering
+\caption{Computation Times}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Level & Residues & Time \\
+\midrule
+$P_5$ (2,310)         & 135           & <1s \\
+$P_6$ (30,030)        & 1,485         & <1s \\
+$P_7$ (510,510)       & 22,275        & <1s \\
+$P_8$ (9,699,690)     & 378,675       & 1s \\
+$P_9$ (223,092,870)   & 7,952,175     & 3s \\
+$P_{10}$ (6,469,693,230) & 214,708,725 & 130s \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+\end{document}

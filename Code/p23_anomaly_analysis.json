@@ -1,0 +1,9 @@
+{
+  "prime": 23,
+  "modulus_prev": 9699690,
+  "total_residues": 378675,
+  "collision_residues_count": 0,
+  "normal_residues_count": 378675,
+  "expected_anomaly": 16471,
+  "collision_residues_sample": []
+}

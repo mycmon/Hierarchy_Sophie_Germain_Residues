@@ -136,7 +136,7 @@ If you use this work, please cite:
   title={Perfect Fractal Hierarchy of Sophie Germain Prime Residues: 
          Universal Scaling Law Validated to 214 Million Residues},
   author={Michel Monfette},
-  journal={arXiv preprint},
+  journal={github preprint},
   year={2026}
 }
 ```
